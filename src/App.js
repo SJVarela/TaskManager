@@ -1,27 +1,55 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "../node_modules/materialize-css/dist/css/materialize.min.css";
+import TaskList from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
+import M from "materialize-css";
+import tasks from "./data";
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { tasks };
+  }
+  updateState = newTasks => this.setState({ tasks: newTasks });
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <DragDropContextProvider backend={HTML5Backend}>
+        <div className="container">
+          <TaskForm />
+          <div className="row">
+            <div className="col m4">
+              <TaskList
+                title="Planned"
+                tasks={this.state.tasks}
+                filter={task => task.taskState === "planned"}
+                updateState={this.updateState}
+              />
+            </div>
+            <div className="col m4">
+              <TaskList
+                title="In Progress"
+                tasks={this.state.tasks}
+                filter={task => task.taskState === "in progress"}
+                updateState={this.updateState}
+              />
+            </div>
+            <div className="col m4">
+              <TaskList
+                title="Finished"
+                tasks={this.state.tasks}
+                filter={task => task.taskState === "finished"}
+                updateState={this.updateState}
+              />
+            </div>
+          </div>
+        </div>
+      </DragDropContextProvider>
     );
+  }
+  componentDidMount() {
+    M.AutoInit();
   }
 }
 
