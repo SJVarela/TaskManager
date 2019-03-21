@@ -1,32 +1,4 @@
 import React from "react";
-import { DragSource } from "react-dnd";
-
-const taskSource = {
-  beginDrag(props) {
-    return props;
-  },
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return;
-    }
-    // When dropped on a compatible target, do something
-    const item = monitor.getItem();
-    const dropResult = monitor.getDropResult();
-    const newTasks = dropResult.tasks.map(task =>
-      task.id === item.id
-        ? { ...task, taskState: dropResult.title.toLowerCase() }
-        : task
-    );
-    props.updateState(newTasks);
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}
 
 const Task = ({
   title,
@@ -36,7 +8,7 @@ const Task = ({
   updateState,
   connectDragSource
 }) => {
-  return connectDragSource(
+  return (
     <div className="row">
       <div className="col s12">
         <div className="card blue">
@@ -51,4 +23,4 @@ const Task = ({
     </div>
   );
 };
-export default DragSource("Task", taskSource, collect)(Task);
+export default Task;

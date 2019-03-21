@@ -4,8 +4,6 @@ import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 import M from "materialize-css";
 import tasks from "./data";
-import { DragDropContextProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
 
 class App extends Component {
   constructor() {
@@ -15,37 +13,35 @@ class App extends Component {
   updateState = newTasks => this.setState({ tasks: newTasks });
   render() {
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
-        <div className="container">
-          <TaskForm />
-          <div className="row">
-            <div className="col m4">
-              <TaskList
-                title="Planned"
-                tasks={this.state.tasks}
-                filter={task => task.taskState === "planned"}
-                updateState={this.updateState}
-              />
-            </div>
-            <div className="col m4">
-              <TaskList
-                title="In Progress"
-                tasks={this.state.tasks}
-                filter={task => task.taskState === "in progress"}
-                updateState={this.updateState}
-              />
-            </div>
-            <div className="col m4">
-              <TaskList
-                title="Finished"
-                tasks={this.state.tasks}
-                filter={task => task.taskState === "finished"}
-                updateState={this.updateState}
-              />
-            </div>
+      <div className="container">
+        <TaskForm />
+        <div className="row">
+          <div className="col m4">
+            <TaskList
+              title="Planned"
+              tasks={this.state.tasks}
+              filter={task => task.taskState === "planned"}
+              updateState={this.updateState}
+            />
+          </div>
+          <div className="col m4">
+            <TaskList
+              title="In Progress"
+              tasks={this.state.tasks}
+              filter={task => task.taskState === "in progress"}
+              updateState={this.updateState}
+            />
+          </div>
+          <div className="col m4">
+            <TaskList
+              title="Finished"
+              tasks={this.state.tasks}
+              filter={task => task.taskState === "finished"}
+              updateState={this.updateState}
+            />
           </div>
         </div>
-      </DragDropContextProvider>
+      </div>
     );
   }
   componentDidMount() {

@@ -1,19 +1,6 @@
 import React from "react";
 import Task from "./Task";
-import { DropTarget } from "react-dnd";
 
-function collect(connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
-  };
-}
-
-const squareTarget = {
-  drop(props) {
-    return props;
-  }
-};
 const TaskList = ({
   tasks,
   filter,
@@ -21,7 +8,7 @@ const TaskList = ({
   connectDropTarget,
   updateState
 }) => {
-  return connectDropTarget(
+  return (
     <div className="col s12">
       <h3>{title}</h3>
       {tasks.filter(filter).map(task => (
@@ -31,4 +18,4 @@ const TaskList = ({
   );
 };
 
-export default DropTarget("Task", squareTarget, collect)(TaskList);
+export default TaskList;
