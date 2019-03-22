@@ -13,6 +13,9 @@ class App extends Component {
   handleSubmit = task => {
     this.setState({ tasks: [...this.state.tasks, task] });
   };
+  handleDelete = id => {
+    this.setState({ tasks: this.state.tasks.filter(task => task.id !== id) });
+  };
   render() {
     return (
       <div className="container">
@@ -37,6 +40,7 @@ class App extends Component {
               tasks={this.state.tasks.filter(
                 task => task.taskState === "planned"
               )}
+              onDelete={this.handleDelete}
             />
           </div>
           <div className="col m4">
@@ -45,6 +49,7 @@ class App extends Component {
               tasks={this.state.tasks.filter(
                 task => task.taskState === "in progress"
               )}
+              onDelete={this.handleDelete}
             />
           </div>
           <div className="col m4">
@@ -53,6 +58,7 @@ class App extends Component {
               tasks={this.state.tasks.filter(
                 task => task.taskState === "finished"
               )}
+              onDelete={this.handleDelete}
             />
           </div>
         </div>
