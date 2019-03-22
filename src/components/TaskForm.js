@@ -1,7 +1,7 @@
 import React from "react";
 import uuid from "uuid/v4";
 const TaskForm = ({ onSubmit }) => {
-  let _title, _estimate, _description;
+  let _title, _estimate, _description, form;
   const submit = event => {
     event.preventDefault();
     onSubmit({
@@ -11,9 +11,10 @@ const TaskForm = ({ onSubmit }) => {
       description: _description.value,
       taskState: "planned"
     });
+    form.reset();
   };
   return (
-    <form className="col s12" onSubmit={submit}>
+    <form className="col s12" onSubmit={submit} ref={el => (form = el)}>
       <div className="row">
         <div className="input-field col s6">
           <input
@@ -50,7 +51,7 @@ const TaskForm = ({ onSubmit }) => {
       </div>
       <div className="row">
         <button id="btnAdd" className="waves-effect waves-light btn">
-          <i className="material-icons left">add_circle_outline</i>Add Task
+          <i className="material-icons left">save</i>Save
         </button>
       </div>
     </form>

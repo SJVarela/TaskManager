@@ -16,7 +16,20 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <TaskForm onSubmit={this.handleSubmit} />
+        <div className="fixed-action-btn">
+          <button
+            id="btnAdd"
+            data-target="taskForm"
+            className="waves-effect waves-light btn-large modal-trigger"
+          >
+            <i className="material-icons left">add_circle_outline</i>Add Task
+          </button>
+        </div>
+        <div id="taskForm" className="modal">
+          <div className="container valign-wrapper">
+            <TaskForm onSubmit={this.handleSubmit} />
+          </div>
+        </div>
         <div className="row">
           <div className="col m4">
             <TaskList
