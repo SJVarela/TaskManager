@@ -1,17 +1,10 @@
 import React from "react";
 
-const Task = ({
-  title,
-  description,
-  estimate,
-  taskState = "planned",
-  updateState,
-  connectDragSource
-}) => {
+const Task = ({ title, description, estimate, taskState = "planned" }) => {
   return (
     <div className="row">
       <div className="col s12">
-        <div className="card blue">
+        <div className="card blue hoverable">
           <div className="card-content  white-text">
             <span className="card-title">{title}</span>
             <p>{description}</p>

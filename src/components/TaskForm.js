@@ -1,17 +1,38 @@
 import React from "react";
-
-const TaskForm = () => {
+import uuid from "uuid/v4";
+const TaskForm = ({ onSubmit }) => {
+  let _title, _estimate, _description;
+  const submit = event => {
+    event.preventDefault();
+    onSubmit({
+      id: uuid(),
+      title: _title.value,
+      estimate: _estimate.value,
+      description: _description.value,
+      taskState: "planned"
+    });
+  };
   return (
-    <form className="col s12">
+    <form className="col s12" onSubmit={submit}>
       <div className="row">
         <div className="input-field col s6">
-          <input id="title" type="text" />
+          <input
+            id="title"
+            required
+            type="text"
+            ref={input => (_title = input)}
+          />
           <label htmlFor="title" className="active">
             Title
           </label>
         </div>
         <div className="input-field col s6">
-          <input id="estimate" type="number" />
+          <input
+            id="estimate"
+            type="number"
+            ref={input => (_estimate = input)}
+            required
+          />
           <label htmlFor="estimate" className="active">
             Estimate
           </label>
@@ -21,14 +42,16 @@ const TaskForm = () => {
             id="description"
             className="materialize-textarea"
             data-length="120"
+            ref={input => (_description = input)}
+            required
           />
           <label htmlFor="description">Description</label>
         </div>
       </div>
       <div className="row">
-        <div id="btnAdd" className="waves-effect waves-light btn">
+        <button id="btnAdd" className="waves-effect waves-light btn">
           <i className="material-icons left">add_circle_outline</i>Add Task
-        </div>
+        </button>
       </div>
     </form>
   );
