@@ -5,6 +5,8 @@ import TaskForm from "./components/TaskForm";
 import M from "materialize-css";
 import tasks from "./data";
 
+	
+
 class App extends Component {
   constructor() {
     super();
@@ -15,6 +17,11 @@ class App extends Component {
   };
   handleDelete = id => {
     this.setState({ tasks: this.state.tasks.filter(task => task.id !== id) });
+  };
+  handleEdit = task => {
+    this.setState({
+      tasks: [...this.state.tasks.filter(t => t.id !== task.id), task]
+    });
   };
   render() {
     return (
@@ -41,6 +48,7 @@ class App extends Component {
                 task => task.taskState === "planned"
               )}
               onDelete={this.handleDelete}
+              onEdit={this.handleEdit}
             />
           </div>
           <div className="col m4">
@@ -50,6 +58,7 @@ class App extends Component {
                 task => task.taskState === "in progress"
               )}
               onDelete={this.handleDelete}
+              onEdit={this.handleEdit}
             />
           </div>
           <div className="col m4">
@@ -59,6 +68,7 @@ class App extends Component {
                 task => task.taskState === "finished"
               )}
               onDelete={this.handleDelete}
+              onEdit={this.handleEdit}
             />
           </div>
         </div>
